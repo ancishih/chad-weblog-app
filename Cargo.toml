@@ -1,0 +1,48 @@
+[package]
+name = "chad-weblog-app"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.75"
+async-session = "3.0.0"
+axum = { version="0.6.18", features=["tokio","headers","macros"] }
+axum-sessions = "0.5.0"
+bytes = "1.4.0"
+chrono = { version = "0.4.26", features = ["serde"] }
+chrono-tz = "0.8.3"
+cron = "0.12.0"
+dotenv = "0.15.0"
+fantoccini = "0.19.3"
+futures = "0.3.28"
+jsonwebtoken = "8.3.0"
+lettre = {version= "0.10.4", features=["serde", "serde_json", "uuid", "tokio1", "tokio1-native-tls"] } 
+mime = "0.3.17"
+oauth2 = "4.4.1"
+openssl = { version = "0.10.56", features = ["vendored"] }
+password-hash = "0.5.0"
+rand = {version="0.8.5", features=["min_const_gen","getrandom"]}
+redis = { version="0.23.1", features=["tokio-rustls"] }
+reqwest = { version="0.11.18", features=["json"] }
+rust-argon2 = "2.0.0"
+scraper = "0.17.1"
+serde = { version="1.0.181", features=["derive"] }
+serde_json = "1.0.104"
+serde_with = "3.3.0"
+sqlx = { version="0.6.3", features=["runtime-tokio-rustls", "uuid", "time", "postgres", "macros", "json", "chrono","decimal"] }
+thiserror = "1.0.44"
+time = {version="0.3.25", features=["std"]}
+tokio = { version="1.29.1", features=["full"] }
+tower-cookies = {version="0.9.0", features=["private","signed"]}
+tower-http = { version="0.4.3", features=["cors", "add-extension"] }
+tracing = "0.1.37"
+tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
+url = "2.4.0"
+utoipa = { version="3.4.4", features=["axum_extras"] }
+utoipa-swagger-ui = { version = "3.1.5", features = ["axum"] }
+uuid = { version = "1.4.1", features = ["v4", "serde"] }
+validator = "0.16.1"
+[dev-dependencies]
+httpc-test = "0.1.1"
