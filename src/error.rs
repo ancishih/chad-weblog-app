@@ -4,11 +4,10 @@ use axum::{
     response::{IntoResponse, Response},
     Error as AxumError,
 };
+use cron::error::Error as CronError;
 use lettre::error::Error as LettreError;
-use reqwest::Error as ReqwestError;
 use serde_json::json;
 use std::env::VarError;
-use std::fmt::Error as fmtError;
 pub type Result<T> = core::result::Result<T, Error>;
 
 // pub struct Error;
@@ -30,6 +29,9 @@ pub enum Error {
 
     #[error("{0}")]
     SystemAxumError(#[from] AxumError),
+
+    #[error("{0}")]
+    SystemCronError(#[from] CronError),
 
     #[error("{0} is Not Found.")]
     NOTFOUND(String),

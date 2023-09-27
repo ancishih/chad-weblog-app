@@ -1,4 +1,4 @@
-use crate::routes::{auth, cron, mail, stock};
+use crate::routes::{auth, mail, stock};
 use axum::{
     http::{header, Method},
     Router,
@@ -14,7 +14,7 @@ mod model;
 mod pagination;
 mod response;
 mod routes;
-
+mod routine;
 #[tokio::main(flavor = "multi_thread", worker_threads = 10)]
 async fn main() {
     // tracing_subscriber::registry().with(
@@ -30,12 +30,16 @@ async fn main() {
         .allow_origin(Any)
         .allow_headers([header::CONTENT_TYPE]);
 
+    // sqlx::migrate!("./migrations").run(&app.db).await.unwrap();
+
     tracing::debug!("listening on {}", addr);
 
     let collect_routes = Router::new()
         .merge(auth::routes(&mut app))
         .merge(mail::routes())
         .merge(stock::routes(&mut app));
+
+    let _ = routine::routine(app.clone()).await.unwrap();
 
     let routes = Router::new()
         .nest("/api", collect_routes)
