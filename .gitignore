@@ -8,3 +8,4 @@ postgresql.conf
 docker-compose.yml
 /migrations
 .DS_Store
+/py/Dockerfile
