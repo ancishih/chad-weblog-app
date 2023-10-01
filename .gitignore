@@ -2,12 +2,9 @@
 .env
 .vscode
 /src/routes/cron.rs
-.github
 company.csv
 pg_session.rs
 postgresql.conf
 docker-compose.yml
 /migrations
 .DS_Store
-.dockerignore
-Dockerfile

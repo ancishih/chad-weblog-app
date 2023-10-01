@@ -1,0 +1,10 @@
+/target
+/tests
+.vscode
+.env
+/py
+company.csv
+pg_session.rs
+postgresql.conf
+.git
+.gitignore
