@@ -6,6 +6,5 @@ company.csv
 pg_session.rs
 postgresql.conf
 docker-compose.yml
-/migrations
 .DS_Store
 /py/Dockerfile

@@ -17,4 +17,4 @@ RUN cargo build --release --target x86_64-unknown-linux-musl
 FROM scratch
 COPY --from=builder /chad-weblog-app/target/x86_64-unknown-linux-musl/release/chad-weblog-app /chad-weblog-app
 ENTRYPOINT [ "/chad-weblog-app" ]
-EXPOSE 5599
+EXPOSE 19955

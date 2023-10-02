@@ -23,14 +23,14 @@ async fn main() {
 
     let mut app = app_state::AppState::new().await.unwrap();
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 5599));
+    let addr = SocketAddr::from(([127, 0, 0, 1], 9955));
 
     let cors = CorsLayer::new()
         .allow_methods([Method::GET, Method::POST, Method::PUT, Method::DELETE])
         .allow_origin(Any)
         .allow_headers([header::CONTENT_TYPE]);
 
-    // sqlx::migrate!("./migrations").run(&app.db).await.unwrap();
+    sqlx::migrate!("./migrations").run(&app.db).await.unwrap();
 
     tracing::debug!("listening on {}", addr);
 
