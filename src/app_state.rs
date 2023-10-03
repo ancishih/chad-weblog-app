@@ -43,11 +43,17 @@ impl AppState {
 
         let postgres_url = env::var("DATABASE_URL").expect("DATABASE_URL must to be set.");
 
-        let db = PgPoolOptions::new()
-            .max_connections(20)
+        let db = match PgPoolOptions::new()
+            .max_connections(4)
             .connect(&postgres_url)
             .await
-            .unwrap();
+        {
+            Ok(pool) => pool,
+            Err(e) => {
+                eprintln!("{}", e);
+                return Err(e.into());
+            }
+        };
 
         let client = Client::new();
 

@@ -1,12 +1,12 @@
 use crate::app_state::AppState;
-use crate::error::Error;
 use crate::model::stock;
 use chrono::prelude::*;
 use chrono::{Duration, NaiveDate, Utc};
 use chrono_tz::Asia::Taipei;
 use cron::Schedule;
+use std::error::Error;
 use std::str::FromStr;
-pub async fn routine(app: AppState) -> Result<(), Error> {
+pub async fn routine(app: AppState) -> Result<(), Box<dyn Error>> {
     let daily_exp = "0 30 4 * * Tue,Wed,Thu,Fri,Sat *";
 
     let schedule = Schedule::from_str(daily_exp)?;
@@ -38,7 +38,7 @@ struct SymbolName {
     pub symbol: String,
 }
 
-async fn update_profile(app: AppState) -> Result<(), Error> {
+async fn update_profile(app: AppState) -> Result<(), Box<dyn Error>> {
     let client = app.client;
 
     let base_url = std::env::var("WEB_SERVICES_URL").expect("WEB_SERVICES_URL is not set.");
@@ -101,7 +101,7 @@ async fn update_profile(app: AppState) -> Result<(), Error> {
     Ok(())
 }
 
-async fn update_minute_record(app: AppState) -> Result<(), Error> {
+async fn update_minute_record(app: AppState) -> Result<(), Box<dyn Error>> {
     let client = app.client;
     let symbol_list = sqlx::query_as::<_, SymbolName>(
         "
@@ -198,7 +198,7 @@ async fn update_minute_record(app: AppState) -> Result<(), Error> {
     Ok(())
 }
 
-async fn update_daily_price(app: AppState) -> Result<(), Error> {
+async fn update_daily_price(app: AppState) -> Result<(), Box<dyn Error>> {
     let client = app.client;
     let symbol_list =
       sqlx::query_as::<_, SymbolName>("SELECT symbol FROM demo_app.stock_profile WHERE is_actively_trading = TRUE ORDER BY symbol ASC")
